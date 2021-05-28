@@ -38,6 +38,7 @@ public class BonusServiceTest {
                 new BigDecimal("25000.00"));
         try {
             bonusService.calcularBonus(funcionario);
+            fail("Regra zoada");
         } catch (Exception e){
             assertEquals("Valor maior que 1k", e.getMessage());
         }
