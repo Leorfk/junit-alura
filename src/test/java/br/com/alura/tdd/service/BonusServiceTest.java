@@ -21,14 +21,26 @@ public class BonusServiceTest {
     }
 
     @Test
-    public void deveVerificarRegraDeBonusZerado(){
+    public void deveLancarException(){
         Funcionario funcionario = new Funcionario(
                 "Toma",
                 LocalDate.now(),
                 new BigDecimal("25000.00"));
-        BigDecimal bonus = bonusService.calcularBonus(funcionario);
+        assertThrows(IllegalArgumentException.class,
+                () -> bonusService.calcularBonus(funcionario));
+    }
 
-        assertEquals(new BigDecimal("0.00"), bonus);
+    @Test
+    public void deveLancarVerificarMensagemDaException(){
+        Funcionario funcionario = new Funcionario(
+                "Toma",
+                LocalDate.now(),
+                new BigDecimal("25000.00"));
+        try {
+            bonusService.calcularBonus(funcionario);
+        } catch (Exception e){
+            assertEquals("Valor maior que 1k", e.getMessage());
+        }
     }
 
     @Test
